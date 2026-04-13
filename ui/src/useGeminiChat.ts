@@ -9,6 +9,15 @@ export interface ChatMessage {
   imageMimeType?: string
 }
 
+type GeminiPart =
+  | { text: string }
+  | {
+      inlineData: {
+        mimeType: string
+        data: string
+      }
+    }
+
 const genAI = new GoogleGenerativeAI(import.meta.env.VITE_GOOGLE_API_KEY)
 
 export function useGeminiChat() {
@@ -38,7 +47,7 @@ export function useGeminiChat() {
         const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash' })
         
         // Construir partes del mensaje
-        const messageParts: any[] = []
+        const messageParts: GeminiPart[] = []
 
         // Agregar system prompt inicial si es primer mensaje
         if (messages.length === 0) {
@@ -59,12 +68,14 @@ export function useGeminiChat() {
         messageParts.push({ text: userMessage })
 
         // Enviar mensaje directamente
-        const result = await model.generateContent({
+        const request = {
           contents: [{ role: 'user', parts: messageParts }],
           generationConfig: {
             maxOutputTokens: 2048,
           },
-        } as any)
+        }
+
+        const result = await model.generateContent(request)
         const assistantResponse = result.response.text()
 
         // Extraer solo el código Python si está disponible

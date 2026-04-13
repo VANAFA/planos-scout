@@ -313,8 +313,8 @@ PARÁMETRO angulo_inicial EXPLICADO:
 VISUALIZACIÓN DESDE ARRIBA (vista Z negativa):
 tripode con angulo_inicial=0°:        tripode con angulo_inicial=90°:
          pata1         |                      pata1
-            |\         |                         |
-            | \        |                         |\
+        |/         |                         |
+        | /        |                         |/
   pata3---------pata2  |              pata3------*------pata2
 
 DISTRIBUCIÓN DE PATAS:
@@ -536,7 +536,7 @@ function parseConstruction(code: string): ParseResult {
     const rest = mMatch[2]
     const meta = ensureStepMeta(step)
 
-    const amarre = rest.match(/amarre\s*=\s*([A-Za-zÁÉÍÓÚáéíóú0-9_\-]+)/i)
+    const amarre = rest.match(/amarre\s*=\s*([A-Za-zÁÉÍÓÚáéíóú0-9_-]+)/i)
     const cMin = rest.match(/constructores_min\s*=\s*(\d+)/i)
     const cMax = rest.match(/constructores_max\s*=\s*(\d+)/i)
     if (amarre && !meta.amarres.includes(amarre[1])) meta.amarres.push(amarre[1])
@@ -545,7 +545,7 @@ function parseConstruction(code: string): ParseResult {
   }
 
   const amarreMethodRegex =
-    /engine\.registrar_amarre_paso\(\s*(\d+)\s*,\s*["']([^"']+)["']\s*(?:,\s*([^\)]*))?\)/g
+    /engine\.registrar_amarre_paso\(\s*(\d+)\s*,\s*["']([^"']+)["']\s*(?:,\s*([^)]*))?\)/g
   let aMatch: RegExpExecArray | null
   while ((aMatch = amarreMethodRegex.exec(expandedCode)) !== null) {
     const step = Number(aMatch[1])
@@ -621,7 +621,7 @@ function parseConstruction(code: string): ParseResult {
       const direccion = parseVec3(tablaMatch[2], env)
       const color = parseColorToken(tablaMatch[3].trim(), colorConstants)
       const extraArgs = tablaMatch[4] || ''
-      const largoMatch = extraArgs.match(/largo\s*=\s*([^,\)\n]+)/i)
+      const largoMatch = extraArgs.match(/largo\s*=\s*([^,\n)]+)/i)
 
       const largo = largoMatch ? evaluateNumericExpression(largoMatch[1].trim(), env) : 1.5
 
@@ -656,7 +656,7 @@ function parseConstruction(code: string): ParseResult {
       
       // Extraer angulo_inicial si existe
       const extraArgs = soporteMatch[6] || ''
-      const anguloMatch = extraArgs.match(/angulo_inicial\s*=\s*([^,\)\n]+)/i)
+      const anguloMatch = extraArgs.match(/angulo_inicial\s*=\s*([^,\n)]+)/i)
       const anguloInicial = anguloMatch 
         ? (evaluateNumericExpression(anguloMatch[1].trim(), env) * Math.PI) / 180 
         : 0
@@ -1174,7 +1174,7 @@ function App() {
     }
     const centerPoint = { x: drawing.width / 2, y: drawing.height / 2 }
     setGhostPreview(buildGhostPreviewAt(centerPoint))
-  }, [activeInsertAsset, drawing.width, drawing.height])
+  }, [activeInsertAsset, buildGhostPreviewAt, drawing.width, drawing.height])
 
   const currentMeta = parsed.stepMeta[safeStep] ?? { step: safeStep, amarres: [] }
   const selectedSegment = parsed.segments.find((s) => s.id === selectedSegmentId) || null
@@ -1192,6 +1192,7 @@ function App() {
       }
     : null
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   function getSelectedIdsForDeletion(): number[] {
     const ids = selectedSegmentIds.length
       ? selectedSegmentIds
@@ -1204,6 +1205,7 @@ function App() {
     return Array.from(new Set(ids)).filter((id) => existingIds.has(id))
   }
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   function deleteSelectedSegments() {
     const idsToDelete = getSelectedIdsForDeletion()
     if (!idsToDelete.length) return
@@ -1261,6 +1263,7 @@ function App() {
     pasteCounterRef.current = 0
   }
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   function pasteCopiedSegments() {
     const clipboard = clipboardSegmentsRef.current
     if (!clipboard?.length) return
@@ -1349,8 +1352,16 @@ function App() {
 
     window.addEventListener('keydown', onKeyDown, true)
     return () => window.removeEventListener('keydown', onKeyDown, true)
-  }, [selectedSegmentId, selectedSegmentIds, parsed.segments, activeInsertAsset, lashingPrompt])
-
+  }, [
+    activeInsertAsset,
+    deleteSelectedSegments,
+    getSelectedIdsForDeletion,
+    lashingPrompt,
+    pasteCopiedSegments,
+    selectedSegmentId,
+    selectedSegmentIds,
+    parsed.segments,
+  ])
   useEffect(() => {
     const existingIds = new Set(parsed.segments.map((s) => s.id))
     setLashingNames((prev) => {
@@ -1480,16 +1491,6 @@ function App() {
     setActiveInsertAsset(asset)
     const centerPoint = { x: drawing.width / 2, y: drawing.height / 2 }
     setGhostPreview(buildGhostPreviewAt(centerPoint))
-  }
-
-  function isWithinBuildDistance(center: Vec3): boolean {
-    if (parsed.segments.length === 0) return true
-
-    let minDistance = Number.POSITIVE_INFINITY
-    for (const segment of parsed.segments) {
-      minDistance = Math.min(minDistance, distancePointToSegment3D(center, segment.p1, segment.p2))
-    }
-    return minDistance <= MAX_BUILD_DISTANCE_METERS
   }
 
   function getRotationBasis(axis: 'x' | 'y' | 'z') {
@@ -1641,61 +1642,72 @@ function App() {
       .sort((a, b) => a.d - b.d)[0]
   }
 
-  function buildGhostPreviewAt(point: { x: number; y: number }): GhostPreview | null {
-    if (!activeInsertAsset) return null
+  function isWithinBuildDistance(center: Vec3): boolean {
+      if (parsed.segments.length === 0) return true
 
-    if (activeInsertAsset === 'amarre') {
-      let nearest: { worldPoint: Vec3; screenPoint: { x: number; y: number }; d: number } | null = null
+      let minDistance = Number.POSITIVE_INFINITY
       for (const segment of parsed.segments) {
-        if (segment.step > safeStep || segment.type !== 'palo') continue
-        const candidates = [segment.p1, segment.p2]
-        for (const candidate of candidates) {
-          const screenPoint = drawing.projectWorldToScreen(candidate)
-          const d = Math.hypot(point.x - screenPoint.x, point.y - screenPoint.y)
-          if (!nearest || d < nearest.d) {
-            nearest = { worldPoint: candidate, screenPoint, d }
+        minDistance = Math.min(minDistance, distancePointToSegment3D(center, segment.p1, segment.p2))
+      }
+      return minDistance <= MAX_BUILD_DISTANCE_METERS
+  }
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  function buildGhostPreviewAt(point: { x: number; y: number }): GhostPreview | null {
+      if (!activeInsertAsset) return null
+
+      if (activeInsertAsset === 'amarre') {
+        let nearest: { worldPoint: Vec3; screenPoint: { x: number; y: number }; d: number } | null = null
+        for (const segment of parsed.segments) {
+          if (segment.step > safeStep || segment.type !== 'palo') continue
+          const candidates = [segment.p1, segment.p2]
+          for (const candidate of candidates) {
+            const screenPoint = drawing.projectWorldToScreen(candidate)
+            const d = Math.hypot(point.x - screenPoint.x, point.y - screenPoint.y)
+            if (!nearest || d < nearest.d) {
+              nearest = { worldPoint: candidate, screenPoint, d }
+            }
           }
+        }
+
+        if (!nearest) {
+          return { asset: 'amarre', screen: point, valid: false }
+        }
+
+        const valid = nearest.d <= 30
+        return {
+          asset: 'amarre',
+          screen: valid ? nearest.screenPoint : point,
+          valid,
+          anchorPoint: valid ? nearest.worldPoint : undefined,
         }
       }
 
-      if (!nearest) {
-        return { asset: 'amarre', screen: point, valid: false }
-      }
+      // Invert the screen projection on the ground plane (z=0) so the ghost follows the cursor accurately.
+      const o = drawing.projectWorldToScreen({ x: 0, y: 0, z: 0 })
+      const px = drawing.projectWorldToScreen({ x: 1, y: 0, z: 0 })
+      const py = drawing.projectWorldToScreen({ x: 0, y: 1, z: 0 })
+      const vx = { x: px.x - o.x, y: px.y - o.y }
+      const vy = { x: py.x - o.x, y: py.y - o.y }
+      const sx = point.x - o.x
+      const sy = point.y - o.y
+      const det = vx.x * vy.y - vx.y * vy.x
 
-      const valid = nearest.d <= 30
+      const worldCenter: Vec3 =
+        Math.abs(det) < 1e-6
+          ? { x: 0, y: 0, z: 0 }
+          : {
+              x: Math.round((((sx * vy.y - sy * vy.x) / det) * 2)) / 2,
+              y: Math.round((((vx.x * sy - vx.y * sx) / det) * 2)) / 2,
+              z: 0,
+            }
+
       return {
-        asset: 'amarre',
-        screen: valid ? nearest.screenPoint : point,
-        valid,
-        anchorPoint: valid ? nearest.worldPoint : undefined,
+        asset: activeInsertAsset,
+        screen: drawing.projectWorldToScreen(worldCenter),
+        valid: isWithinBuildDistance(worldCenter),
+        worldCenter,
       }
-    }
-
-    // Invert the screen projection on the ground plane (z=0) so the ghost follows the cursor accurately.
-    const o = drawing.projectWorldToScreen({ x: 0, y: 0, z: 0 })
-    const px = drawing.projectWorldToScreen({ x: 1, y: 0, z: 0 })
-    const py = drawing.projectWorldToScreen({ x: 0, y: 1, z: 0 })
-    const vx = { x: px.x - o.x, y: px.y - o.y }
-    const vy = { x: py.x - o.x, y: py.y - o.y }
-    const sx = point.x - o.x
-    const sy = point.y - o.y
-    const det = vx.x * vy.y - vx.y * vy.x
-
-    const worldCenter: Vec3 =
-      Math.abs(det) < 1e-6
-        ? { x: 0, y: 0, z: 0 }
-        : {
-            x: Math.round((((sx * vy.y - sy * vy.x) / det) * 2)) / 2,
-            y: Math.round((((vx.x * sy - vx.y * sx) / det) * 2)) / 2,
-            z: 0,
-          }
-
-    return {
-      asset: activeInsertAsset,
-      screen: drawing.projectWorldToScreen(worldCenter),
-      valid: isWithinBuildDistance(worldCenter),
-      worldCenter,
-    }
   }
 
   function finalizeBoxSelection(rect: BoxSelectRect, shiftKey: boolean) {
