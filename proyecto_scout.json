@@ -1,0 +1,995 @@
+{
+  "espacio": {
+    "cantidad": {
+      "x": 5,
+      "y": 3,
+      "z": 4
+    },
+    "tamano": {
+      "ancho": 5.0,
+      "largo": 5.0,
+      "alto": 5.0
+    }
+  },
+  "defaults": {
+    "tamano_palo_corto": 1.5,
+    "tamano_palo_largo": 3.0,
+    "grosor_palo": 0.05,
+    "grosor_cana": 0.035,
+    "grosor_soga": 0.02
+  },
+  "constructores": {
+    "minimo": 2,
+    "maximo": 5
+  },
+  "comentarios_paso": {
+    "1": "Construir las dos estructuras cuadradas base. Asegurar que todos los nudos estén bien apretados.",
+    "2": "Conectar las dos estructuras con el puente. Verificar que sea nivel y resistente.",
+    "3": "Amarrar la caña central y la soga guía. Estos elementos son de soporte crítico."
+  },
+  "rotaciones_paso": {
+    "2": {
+      "x": 0.0,
+      "z": 180.0
+    }
+  },
+  "elementos": [
+    {
+      "id": 1,
+      "tipo": "palo",
+      "p1": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "p2": [
+        0.0,
+        0.0,
+        3.0
+      ],
+      "color_rgb_0_1": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "fixed": false,
+      "etiqueta": "V(0,0)",
+      "tamano": null
+    },
+    {
+      "id": 2,
+      "tipo": "palo",
+      "p1": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "p2": [
+        1.0,
+        0.0,
+        3.0
+      ],
+      "color_rgb_0_1": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "fixed": false,
+      "etiqueta": "V(1,0)",
+      "tamano": null
+    },
+    {
+      "id": 3,
+      "tipo": "palo",
+      "p1": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "p2": [
+        0.0,
+        1.0,
+        3.0
+      ],
+      "color_rgb_0_1": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "fixed": false,
+      "etiqueta": "V(0,1)",
+      "tamano": null
+    },
+    {
+      "id": 4,
+      "tipo": "palo",
+      "p1": [
+        1.0,
+        1.0,
+        0.0
+      ],
+      "p2": [
+        1.0,
+        1.0,
+        3.0
+      ],
+      "color_rgb_0_1": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "fixed": false,
+      "etiqueta": "V(1,1)",
+      "tamano": null
+    },
+    {
+      "id": 5,
+      "tipo": "palo",
+      "p1": [
+        0.0,
+        0.0,
+        2.0
+      ],
+      "p2": [
+        1.0,
+        0.0,
+        2.0
+      ],
+      "color_rgb_0_1": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "fixed": false,
+      "etiqueta": "H1@z2",
+      "tamano": null
+    },
+    {
+      "id": 6,
+      "tipo": "palo",
+      "p1": [
+        1.0,
+        0.0,
+        2.0
+      ],
+      "p2": [
+        1.0,
+        1.0,
+        2.0
+      ],
+      "color_rgb_0_1": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "fixed": false,
+      "etiqueta": "H2@z2",
+      "tamano": null
+    },
+    {
+      "id": 7,
+      "tipo": "palo",
+      "p1": [
+        1.0,
+        1.0,
+        2.0
+      ],
+      "p2": [
+        0.0,
+        1.0,
+        2.0
+      ],
+      "color_rgb_0_1": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "fixed": false,
+      "etiqueta": "H3@z2",
+      "tamano": null
+    },
+    {
+      "id": 8,
+      "tipo": "palo",
+      "p1": [
+        0.0,
+        1.0,
+        2.0
+      ],
+      "p2": [
+        0.0,
+        0.0,
+        2.0
+      ],
+      "color_rgb_0_1": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "fixed": false,
+      "etiqueta": "H4@z2",
+      "tamano": null
+    },
+    {
+      "id": 9,
+      "tipo": "palo",
+      "p1": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "p2": [
+        1.0,
+        0.0,
+        1.0
+      ],
+      "color_rgb_0_1": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "fixed": false,
+      "etiqueta": "H1@z1",
+      "tamano": null
+    },
+    {
+      "id": 10,
+      "tipo": "palo",
+      "p1": [
+        1.0,
+        0.0,
+        1.0
+      ],
+      "p2": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "color_rgb_0_1": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "fixed": false,
+      "etiqueta": "H2@z1",
+      "tamano": null
+    },
+    {
+      "id": 11,
+      "tipo": "palo",
+      "p1": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "p2": [
+        0.0,
+        1.0,
+        1.0
+      ],
+      "color_rgb_0_1": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "fixed": false,
+      "etiqueta": "H3@z1",
+      "tamano": null
+    },
+    {
+      "id": 12,
+      "tipo": "palo",
+      "p1": [
+        0.0,
+        1.0,
+        1.0
+      ],
+      "p2": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "color_rgb_0_1": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "fixed": false,
+      "etiqueta": "H4@z1",
+      "tamano": null
+    },
+    {
+      "id": 13,
+      "tipo": "palo",
+      "p1": [
+        3.0,
+        0.0,
+        0.0
+      ],
+      "p2": [
+        3.0,
+        0.0,
+        3.0
+      ],
+      "color_rgb_0_1": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "fixed": false,
+      "etiqueta": "V(3,0)",
+      "tamano": null
+    },
+    {
+      "id": 14,
+      "tipo": "palo",
+      "p1": [
+        4.0,
+        0.0,
+        0.0
+      ],
+      "p2": [
+        4.0,
+        0.0,
+        3.0
+      ],
+      "color_rgb_0_1": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "fixed": false,
+      "etiqueta": "V(4,0)",
+      "tamano": null
+    },
+    {
+      "id": 15,
+      "tipo": "palo",
+      "p1": [
+        3.0,
+        1.0,
+        0.0
+      ],
+      "p2": [
+        3.0,
+        1.0,
+        3.0
+      ],
+      "color_rgb_0_1": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "fixed": false,
+      "etiqueta": "V(3,1)",
+      "tamano": null
+    },
+    {
+      "id": 16,
+      "tipo": "palo",
+      "p1": [
+        4.0,
+        1.0,
+        0.0
+      ],
+      "p2": [
+        4.0,
+        1.0,
+        3.0
+      ],
+      "color_rgb_0_1": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "fixed": false,
+      "etiqueta": "V(4,1)",
+      "tamano": null
+    },
+    {
+      "id": 17,
+      "tipo": "palo",
+      "p1": [
+        3.0,
+        0.0,
+        2.0
+      ],
+      "p2": [
+        4.0,
+        0.0,
+        2.0
+      ],
+      "color_rgb_0_1": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "fixed": false,
+      "etiqueta": "H1@z2",
+      "tamano": null
+    },
+    {
+      "id": 18,
+      "tipo": "palo",
+      "p1": [
+        4.0,
+        0.0,
+        2.0
+      ],
+      "p2": [
+        4.0,
+        1.0,
+        2.0
+      ],
+      "color_rgb_0_1": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "fixed": false,
+      "etiqueta": "H2@z2",
+      "tamano": null
+    },
+    {
+      "id": 19,
+      "tipo": "palo",
+      "p1": [
+        4.0,
+        1.0,
+        2.0
+      ],
+      "p2": [
+        3.0,
+        1.0,
+        2.0
+      ],
+      "color_rgb_0_1": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "fixed": false,
+      "etiqueta": "H3@z2",
+      "tamano": null
+    },
+    {
+      "id": 20,
+      "tipo": "palo",
+      "p1": [
+        3.0,
+        1.0,
+        2.0
+      ],
+      "p2": [
+        3.0,
+        0.0,
+        2.0
+      ],
+      "color_rgb_0_1": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "fixed": false,
+      "etiqueta": "H4@z2",
+      "tamano": null
+    },
+    {
+      "id": 21,
+      "tipo": "palo",
+      "p1": [
+        3.0,
+        0.0,
+        1.0
+      ],
+      "p2": [
+        4.0,
+        0.0,
+        1.0
+      ],
+      "color_rgb_0_1": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "fixed": false,
+      "etiqueta": "H1@z1",
+      "tamano": null
+    },
+    {
+      "id": 22,
+      "tipo": "palo",
+      "p1": [
+        4.0,
+        0.0,
+        1.0
+      ],
+      "p2": [
+        4.0,
+        1.0,
+        1.0
+      ],
+      "color_rgb_0_1": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "fixed": false,
+      "etiqueta": "H2@z1",
+      "tamano": null
+    },
+    {
+      "id": 23,
+      "tipo": "palo",
+      "p1": [
+        4.0,
+        1.0,
+        1.0
+      ],
+      "p2": [
+        3.0,
+        1.0,
+        1.0
+      ],
+      "color_rgb_0_1": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "fixed": false,
+      "etiqueta": "H3@z1",
+      "tamano": null
+    },
+    {
+      "id": 24,
+      "tipo": "palo",
+      "p1": [
+        3.0,
+        1.0,
+        1.0
+      ],
+      "p2": [
+        3.0,
+        0.0,
+        1.0
+      ],
+      "color_rgb_0_1": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "fixed": false,
+      "etiqueta": "H4@z1",
+      "tamano": null
+    },
+    {
+      "id": 25,
+      "tipo": "palo",
+      "p1": [
+        -1.0,
+        0.0,
+        0.0
+      ],
+      "p2": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "color_rgb_0_1": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "fixed": false,
+      "etiqueta": "Diag-1",
+      "tamano": null
+    },
+    {
+      "id": 26,
+      "tipo": "palo",
+      "p1": [
+        -1.0,
+        1.0,
+        0.0
+      ],
+      "p2": [
+        0.0,
+        1.0,
+        1.0
+      ],
+      "color_rgb_0_1": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "fixed": false,
+      "etiqueta": "Diag-2",
+      "tamano": null
+    },
+    {
+      "id": 27,
+      "tipo": "palo",
+      "p1": [
+        -0.75,
+        0.0,
+        0.25
+      ],
+      "p2": [
+        -0.75,
+        1.0,
+        0.25
+      ],
+      "color_rgb_0_1": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "fixed": false,
+      "etiqueta": null,
+      "tamano": null
+    },
+    {
+      "id": 28,
+      "tipo": "palo",
+      "p1": [
+        -0.5,
+        0.0,
+        0.5
+      ],
+      "p2": [
+        -0.5,
+        1.0,
+        0.5
+      ],
+      "color_rgb_0_1": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "fixed": false,
+      "etiqueta": null,
+      "tamano": null
+    },
+    {
+      "id": 29,
+      "tipo": "palo",
+      "p1": [
+        -0.25,
+        0.0,
+        0.75
+      ],
+      "p2": [
+        -0.25,
+        1.0,
+        0.75
+      ],
+      "color_rgb_0_1": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "fixed": false,
+      "etiqueta": null,
+      "tamano": null
+    },
+    {
+      "id": 30,
+      "tipo": "palo",
+      "p1": [
+        1.0,
+        0.0,
+        1.75
+      ],
+      "p2": [
+        1.0,
+        1.0,
+        1.75
+      ],
+      "color_rgb_0_1": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "fixed": false,
+      "etiqueta": null,
+      "tamano": null
+    },
+    {
+      "id": 31,
+      "tipo": "palo",
+      "p1": [
+        1.0,
+        0.0,
+        1.5
+      ],
+      "p2": [
+        1.0,
+        1.0,
+        1.5
+      ],
+      "color_rgb_0_1": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "fixed": false,
+      "etiqueta": null,
+      "tamano": null
+    },
+    {
+      "id": 32,
+      "tipo": "palo",
+      "p1": [
+        1.0,
+        0.0,
+        1.25
+      ],
+      "p2": [
+        1.0,
+        1.0,
+        1.25
+      ],
+      "color_rgb_0_1": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "fixed": false,
+      "etiqueta": null,
+      "tamano": null
+    },
+    {
+      "id": 33,
+      "tipo": "palo",
+      "p1": [
+        1.0,
+        0.0,
+        2.0
+      ],
+      "p2": [
+        3.0,
+        0.0,
+        2.0
+      ],
+      "color_rgb_0_1": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "fixed": false,
+      "etiqueta": "Puente-N",
+      "tamano": null
+    },
+    {
+      "id": 34,
+      "tipo": "palo",
+      "p1": [
+        1.0,
+        1.0,
+        2.0
+      ],
+      "p2": [
+        3.0,
+        1.0,
+        2.0
+      ],
+      "color_rgb_0_1": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "fixed": false,
+      "etiqueta": "Puente-S",
+      "tamano": null
+    },
+    {
+      "id": 35,
+      "tipo": "palo",
+      "p1": [
+        1.0,
+        0.25,
+        2.0
+      ],
+      "p2": [
+        3.0,
+        0.25,
+        2.0
+      ],
+      "color_rgb_0_1": [
+        1.0,
+        1.0,
+        0.0
+      ],
+      "fixed": false,
+      "etiqueta": null,
+      "tamano": null
+    },
+    {
+      "id": 36,
+      "tipo": "palo",
+      "p1": [
+        1.0,
+        0.5,
+        2.0
+      ],
+      "p2": [
+        3.0,
+        0.5,
+        2.0
+      ],
+      "color_rgb_0_1": [
+        1.0,
+        1.0,
+        0.0
+      ],
+      "fixed": false,
+      "etiqueta": null,
+      "tamano": null
+    },
+    {
+      "id": 37,
+      "tipo": "palo",
+      "p1": [
+        1.0,
+        0.75,
+        2.0
+      ],
+      "p2": [
+        3.0,
+        0.75,
+        2.0
+      ],
+      "color_rgb_0_1": [
+        1.0,
+        1.0,
+        0.0
+      ],
+      "fixed": false,
+      "etiqueta": null,
+      "tamano": null
+    },
+    {
+      "id": 38,
+      "tipo": "soga",
+      "p1": [
+        0.0,
+        -0.4,
+        2.2
+      ],
+      "p2": [
+        4.0,
+        -0.4,
+        2.2
+      ],
+      "color_rgb_0_1": [
+        0.7843137254901961,
+        0.5882352941176471,
+        0.35294117647058826
+      ],
+      "fixed": false,
+      "etiqueta": "Soga-Guia",
+      "tamano": null
+    },
+    {
+      "id": 39,
+      "tipo": "cana",
+      "p1": [
+        2.5,
+        0.5,
+        0.0
+      ],
+      "p2": [
+        2.5,
+        0.5,
+        3.5
+      ],
+      "color_rgb_0_1": [
+        0.9019607843137255,
+        0.8235294117647058,
+        0.5490196078431373
+      ],
+      "fixed": false,
+      "etiqueta": "Caña-Central",
+      "tamano": null
+    }
+  ],
+  "intersecciones": [
+    {
+      "elemento_a_id": 1,
+      "elemento_b_id": 5,
+      "lado": "norte",
+      "desfase": 0.08,
+      "amarre_tipo": "Cuadrado",
+      "paso": 1,
+      "constructores_min": 2,
+      "constructores_max": 3
+    },
+    {
+      "elemento_a_id": 2,
+      "elemento_b_id": 6,
+      "lado": "este",
+      "desfase": 0.08,
+      "amarre_tipo": "Cuadrado",
+      "paso": 1,
+      "constructores_min": 2,
+      "constructores_max": 3
+    },
+    {
+      "elemento_a_id": 3,
+      "elemento_b_id": 8,
+      "lado": "oeste",
+      "desfase": 0.08,
+      "amarre_tipo": "Cuadrado",
+      "paso": 1,
+      "constructores_min": 2,
+      "constructores_max": 3
+    },
+    {
+      "elemento_a_id": 4,
+      "elemento_b_id": 7,
+      "lado": "sur",
+      "desfase": 0.08,
+      "amarre_tipo": "Cuadrado",
+      "paso": 1,
+      "constructores_min": 2,
+      "constructores_max": 3
+    },
+    {
+      "elemento_a_id": 13,
+      "elemento_b_id": 17,
+      "lado": "norte",
+      "desfase": 0.08,
+      "amarre_tipo": "Cuadrado",
+      "paso": 1,
+      "constructores_min": 2,
+      "constructores_max": 3
+    },
+    {
+      "elemento_a_id": 14,
+      "elemento_b_id": 18,
+      "lado": "este",
+      "desfase": 0.08,
+      "amarre_tipo": "Cuadrado",
+      "paso": 1,
+      "constructores_min": 2,
+      "constructores_max": 3
+    },
+    {
+      "elemento_a_id": 15,
+      "elemento_b_id": 20,
+      "lado": "oeste",
+      "desfase": 0.08,
+      "amarre_tipo": "Cuadrado",
+      "paso": 1,
+      "constructores_min": 2,
+      "constructores_max": 3
+    },
+    {
+      "elemento_a_id": 16,
+      "elemento_b_id": 19,
+      "lado": "sur",
+      "desfase": 0.08,
+      "amarre_tipo": "Cuadrado",
+      "paso": 1,
+      "constructores_min": 2,
+      "constructores_max": 3
+    }
+  ],
+  "materiales": {
+    "palo": {
+      "cantidad": 37,
+      "longitud_total": 58.828,
+      "corto": 0,
+      "largo": 0,
+      "personalizado": 37
+    },
+    "cana": {
+      "cantidad": 1,
+      "longitud_total": 3.5
+    },
+    "soga": {
+      "cantidad": 1,
+      "longitud_total": 4.0
+    }
+  }
+}
