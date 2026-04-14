@@ -683,3 +683,168 @@ button:hover {
     height: 32px;
   }
 }
+
+@media (max-width: 768px) {
+  .plannerShell {
+    grid-template-rows: auto 1fr;
+  }
+
+  .plannerTopBar {
+    min-height: 52px;
+    padding: 6px 8px;
+    flex-wrap: wrap;
+    justify-content: center;
+    row-gap: 6px;
+  }
+
+  .topLeftCluster {
+    width: 100%;
+    justify-content: space-between;
+    gap: 6px;
+  }
+
+  .brandTitle {
+    display: none;
+  }
+
+  .modeSwitcher {
+    gap: 3px;
+  }
+
+  .modeSwitcher button {
+    min-height: 34px;
+    padding: 5px 8px;
+    font-size: 11px;
+  }
+
+  .plannerTopBar .easyModeButton {
+    order: 3;
+    width: 100%;
+    min-width: 0;
+    height: 36px;
+    font-size: 13px;
+  }
+
+  .topActions {
+    order: 2;
+    width: 100%;
+    justify-content: space-between;
+    gap: 4px;
+    flex-wrap: wrap;
+  }
+
+  .topActions button {
+    flex: 1 1 48%;
+    min-height: 34px;
+    font-size: 12px;
+  }
+
+  .leftDock {
+    max-height: 42vh;
+    padding: 6px;
+  }
+
+  .layout {
+    padding: 6px;
+    gap: 6px;
+  }
+
+  .previewPanel,
+  .editorPanel {
+    padding: 6px;
+    gap: 6px;
+  }
+
+  .panelHeader {
+    flex-wrap: wrap;
+  }
+
+  .panelHeader h2 {
+    font-size: 12px;
+  }
+
+  .viewControls {
+    width: 100%;
+    gap: 4px;
+  }
+
+  .viewControls button {
+    min-height: 34px;
+    font-size: 11px;
+  }
+
+  .toolRow button,
+  .stepRow button,
+  .assetGrid button,
+  .leftTabs button {
+    min-height: 36px;
+  }
+
+  .stepRow {
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+  }
+
+  .stepRow span {
+    grid-column: 1 / -1;
+  }
+
+  .cameraDock {
+    top: 6px;
+    right: 6px;
+    transform: scale(0.92);
+    transform-origin: top right;
+  }
+
+  .codeBox,
+  .promptText,
+  .easyPromptBox {
+    font-size: 11px;
+  }
+
+  .easyModeModal {
+    width: min(96vw, 96vw);
+    max-height: 92vh;
+    padding: 10px;
+  }
+}
+
+@media (max-width: 560px) {
+  .brandLogo {
+    min-width: 66px;
+    height: 24px;
+    font-size: 10px;
+  }
+
+  .modeSwitcher {
+    width: 100%;
+  }
+
+  .modeSwitcher button {
+    flex: 1 1 0;
+    padding: 5px 4px;
+    font-size: 10px;
+  }
+
+  .topActions button {
+    flex: 1 1 100%;
+  }
+
+  .leftTabs {
+    grid-template-columns: 1fr;
+  }
+
+  .cameraDock {
+    transform: scale(0.82);
+  }
+
+  .lashingNameBubble {
+    min-width: 180px;
+    max-width: 92vw;
+  }
+
+  .rotationHud {
+    font-size: 10px;
+    padding: 2px 6px;
+  }
+}
